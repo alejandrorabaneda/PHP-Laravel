@@ -5,7 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\City;
 use App\Controllers\CityController;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany; // Asegúrate de tener la importación correcta
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Country extends Model
 {
@@ -39,8 +41,9 @@ class Country extends Model
     }
 
     // Relación con la tabla CountryLanguage
-    public function languages()
+
+    public function officialLanguage(): BelongsTo
     {
-        return $this->hasMany(CountryLanguage::class, 'CountryCode', 'Code');
+        return $this->belongsTo(Language::class, 'CountryCode', 'LanguageCode');
     }
 }

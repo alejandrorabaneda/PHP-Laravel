@@ -83,4 +83,16 @@ class CityController extends Controller
 
         return response()->json(['message' => 'City deleted successfully']);
     }
+    public function getCitiesOrderedByName()
+    {
+        $cities = City::orderBy('Name')->get(['Name']);
+
+        return response()->json(['cities' => $cities]);
+    }
+    public function getTopCities($numTop)
+    {
+        $cities = City::orderByDesc('Population')->take($numTop)->get();
+
+        return response()->json(['cities' => $cities]);
+    }
 }
